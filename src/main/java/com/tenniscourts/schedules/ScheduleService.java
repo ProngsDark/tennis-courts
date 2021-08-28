@@ -30,6 +30,6 @@ public class ScheduleService {
     }
 
     public List<ScheduleDTO> findSchedulesByTennisCourtId(Long tennisCourtId) {
-        return scheduleMapper.map(scheduleRepository.findByTennisCourt_IdOrderByStartDateTime(tennisCourtId));
+        return scheduleMapper.map(scheduleRepository.findTennisCourts(tennisCourtId));
     }
 }

@@ -20,8 +20,8 @@ public class ReservationService {
         throw new UnsupportedOperationException();
     }
 
-    public ReservationDTO findReservation(Long reservationId) {
-        return reservationRepository.findById(reservationId).map(reservationMapper::map).orElseThrow(() -> {
+    public ReservationDTO findReservation(Long reservationId) throws EntityNotFoundException {
+        return reservationRepository.findById(reservationId).map(reservationMapper::map).<EntityNotFoundException>orElseThrow(() -> {
             throw new EntityNotFoundException("Reservation not found.");
         });
     }
@@ -30,7 +30,7 @@ public class ReservationService {
         return reservationMapper.map(this.cancel(reservationId));
     }
 
-    private Reservation cancel(Long reservationId) {
+    private Reservation cancel(Long reservationId) throws EntityNotFoundException {
         return reservationRepository.findById(reservationId).map(reservation -> {
 
             this.validateCancellation(reservation);
@@ -38,7 +38,7 @@ public class ReservationService {
             BigDecimal refundValue = getRefundValue(reservation);
             return this.updateReservation(reservation, refundValue, ReservationStatus.CANCELLED);
 
-        }).orElseThrow(() -> {
+        }).<EntityNotFoundException>orElseThrow(() -> {
             throw new EntityNotFoundException("Reservation not found.");
         });
     }
@@ -83,10 +83,10 @@ public class ReservationService {
         previousReservation.setReservationStatus(ReservationStatus.RESCHEDULED);
         reservationRepository.save(previousReservation);
 
-        ReservationDTO newReservation = bookReservation(CreateReservationRequestDTO.builder()
-                .guestId(previousReservation.getGuest().getId())
-                .scheduleId(scheduleId)
-                .build());
+        ReservationDTO newReservation = bookReservation(new CreateReservationRequestDTO(
+                previousReservation.getGuest().getId(),
+                scheduleId)
+        );
         newReservation.setPreviousReservation(reservationMapper.map(previousReservation));
         return newReservation;
     }
