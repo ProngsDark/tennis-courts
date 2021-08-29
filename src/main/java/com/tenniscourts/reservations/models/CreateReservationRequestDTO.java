@@ -1,4 +1,4 @@
-package com.tenniscourts.reservations;
+package com.tenniscourts.reservations.models;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

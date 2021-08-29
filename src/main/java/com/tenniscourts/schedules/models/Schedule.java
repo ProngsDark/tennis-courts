@@ -1,12 +1,9 @@
 package com.tenniscourts.schedules.models;
 
 import com.tenniscourts.config.persistence.BaseEntity;
-import com.tenniscourts.reservations.Reservation;
+import com.tenniscourts.reservations.models.Reservation;
 import com.tenniscourts.tenniscourts.models.TennisCourt;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
@@ -21,6 +18,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@EqualsAndHashCode(exclude = {"reservations"})
 public class Schedule extends BaseEntity<Long> {
 
     @ManyToOne
@@ -33,8 +31,10 @@ public class Schedule extends BaseEntity<Long> {
     @NotNull
     private LocalDateTime endDateTime;
 
-    @OneToMany
+    @OneToMany(mappedBy = "schedule")
     private Set<Reservation> reservations;
+
+    private Boolean open;
 
     public void addReservation(Reservation reservation) {
         if (this.reservations == null) {

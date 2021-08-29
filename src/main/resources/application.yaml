@@ -28,3 +28,6 @@ pagination:
   size: 10
   direction: ASC
   page: 0
+
+court-admin:
+  deposit: 10

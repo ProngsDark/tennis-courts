@@ -1,14 +1,12 @@
-package com.tenniscourts.reservations;
+package com.tenniscourts.reservations.models;
 
 import com.tenniscourts.config.persistence.BaseEntity;
 import com.tenniscourts.guests.models.Guest;
+import com.tenniscourts.reservations.utils.ReservationStatus;
 import com.tenniscourts.schedules.models.Schedule;
 import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
@@ -18,9 +16,10 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@EqualsAndHashCode(exclude = {"guest", "schedule"})
 public class Reservation extends BaseEntity<Long> {
 
-    @OneToOne(mappedBy = "reservation")
+    @ManyToOne
     private Guest guest;
 
     @ManyToOne
@@ -33,5 +32,9 @@ public class Reservation extends BaseEntity<Long> {
     @NotNull
     private ReservationStatus reservationStatus = ReservationStatus.READY_TO_PLAY;
 
-    private BigDecimal refundValue;
+    private BigDecimal refundValue = BigDecimal.ZERO;
+
+    public void openSchedule() {
+        this.schedule.setOpen(true);
+    }
 }
