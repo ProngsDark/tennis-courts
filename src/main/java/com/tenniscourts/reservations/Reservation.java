@@ -2,7 +2,7 @@ package com.tenniscourts.reservations;
 
 import com.tenniscourts.config.persistence.BaseEntity;
 import com.tenniscourts.guests.models.Guest;
-import com.tenniscourts.schedules.Schedule;
+import com.tenniscourts.schedules.models.Schedule;
 import lombok.*;
 
 import javax.persistence.Entity;
@@ -14,14 +14,13 @@ import java.math.BigDecimal;
 
 
 @Entity
-@Table
 @Builder
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class Reservation extends BaseEntity<Long> {
 
-    @OneToOne
+    @OneToOne(mappedBy = "reservation")
     private Guest guest;
 
     @ManyToOne

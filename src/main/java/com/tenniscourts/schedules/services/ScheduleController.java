@@ -1,6 +1,8 @@
-package com.tenniscourts.schedules;
+package com.tenniscourts.schedules.services;
 
 import com.tenniscourts.config.BaseRestController;
+import com.tenniscourts.schedules.models.CreateScheduleRequestDTO;
+import com.tenniscourts.schedules.models.ScheduleDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 

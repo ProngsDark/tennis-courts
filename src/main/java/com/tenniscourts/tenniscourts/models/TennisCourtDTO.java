@@ -1,14 +1,11 @@
-package com.tenniscourts.tenniscourts;
+package com.tenniscourts.tenniscourts.models;
 
-import com.tenniscourts.schedules.ScheduleDTO;
+import com.tenniscourts.schedules.models.ScheduleDTO;
 import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Builder
-@AllArgsConstructor
-@NoArgsConstructor
 @Data
 public class TennisCourtDTO {
 

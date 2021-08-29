@@ -1,7 +1,7 @@
-package com.tenniscourts.schedules;
+package com.tenniscourts.schedules.models;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.tenniscourts.tenniscourts.TennisCourtDTO;
+import com.tenniscourts.tenniscourts.models.TennisCourtDTO;
 import lombok.Data;
 
 import javax.validation.constraints.NotNull;

@@ -1,6 +1,6 @@
 package com.tenniscourts.reservations;
 
-import com.tenniscourts.schedules.Schedule;
+import com.tenniscourts.schedules.models.Schedule;
 import org.junit.Assert;
 import org.junit.FixMethodOrder;
 import org.junit.Test;
