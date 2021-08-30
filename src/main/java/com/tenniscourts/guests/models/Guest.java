@@ -14,13 +14,13 @@ import java.util.Set;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@EqualsAndHashCode(exclude = {"reservations"})
+@EqualsAndHashCode(exclude = {"reservations"}, callSuper = true)
 public class Guest extends BaseEntity<Long> {
     @Column
     @NotNull
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, mappedBy = "guest")
+    @OneToMany(mappedBy = "guest", fetch = FetchType.EAGER)
     private Set<Reservation> reservations;
 
     public void addReservation(Reservation reservation) {

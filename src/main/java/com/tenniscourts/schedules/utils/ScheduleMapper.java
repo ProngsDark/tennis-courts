@@ -5,10 +5,11 @@ import com.tenniscourts.schedules.models.Schedule;
 import com.tenniscourts.schedules.models.ScheduleDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.ReportingPolicy;
 
 import java.util.List;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface ScheduleMapper {
 
     Schedule map(ScheduleDTO source);

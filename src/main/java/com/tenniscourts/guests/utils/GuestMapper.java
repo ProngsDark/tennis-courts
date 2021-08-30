@@ -4,10 +4,10 @@ import com.tenniscourts.guests.models.Guest;
 import com.tenniscourts.guests.models.GuestDTO;
 import com.tenniscourts.guests.models.GuestRegistrationRequestDTO;
 import com.tenniscourts.guests.models.GuestUpdateRequestDTO;
-import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
+import org.mapstruct.ReportingPolicy;
 
-@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring", unmappedTargetPolicy = ReportingPolicy.IGNORE)
 public interface GuestMapper {
     Guest map(GuestRegistrationRequestDTO source);
 
@@ -15,6 +15,5 @@ public interface GuestMapper {
 
     Guest map(GuestDTO source);
 
-    @InheritInverseConfiguration
     GuestDTO map(Guest source);
 }

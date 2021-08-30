@@ -16,7 +16,7 @@ import java.math.BigDecimal;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@EqualsAndHashCode(exclude = {"guest", "schedule"})
+@EqualsAndHashCode(exclude = {"guest", "schedule"}, callSuper = true)
 public class Reservation extends BaseEntity<Long> {
 
     @ManyToOne
@@ -30,8 +30,10 @@ public class Reservation extends BaseEntity<Long> {
     private BigDecimal value;
 
     @NotNull
+    @Builder.Default
     private ReservationStatus reservationStatus = ReservationStatus.READY_TO_PLAY;
 
+    @Builder.Default
     private BigDecimal refundValue = BigDecimal.ZERO;
 
     public void openSchedule() {

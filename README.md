@@ -10,8 +10,8 @@ The actual code has the below user stories already implemented. You should compl
 ~~**1. As a User I want to be able to book a reservation for one or more tennis court at a given date schedule**~~
 
 ~~2. As a User I want to be able to see what time slots are free~~
-3. As a User I want to be able to cancel a reservation 
-4. As a User I want to be able to reschedule a reservation 
+~~3. As a User I want to be able to cancel a reservation~~
+~~4. As a User I want to be able to reschedule a reservation~~
 
 ~~**5. As a Tennis Court Admin, I want to be able to Create/Update/Delete/Find by id/Find by name/List all the guests**~~
 
