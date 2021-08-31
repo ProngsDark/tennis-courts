@@ -1,7 +1,9 @@
 package com.tenniscourts.reservations.services;
 
 import com.tenniscourts.TennisCourtApplication;
+import com.tenniscourts.exceptions.AlreadyExistsEntityException;
 import com.tenniscourts.exceptions.EntityNotFoundException;
+import com.tenniscourts.guests.services.GuestRepository;
 import com.tenniscourts.reservations.models.CreateReservationRequestDTO;
 import com.tenniscourts.reservations.models.Reservation;
 import com.tenniscourts.reservations.models.ReservationDTO;
@@ -33,27 +35,31 @@ class ReservationServiceTest {
     @Autowired
     private ReservationRepository reservationRepository;
 
+    @Autowired
+    private GuestRepository guestRepository;
+
     @BeforeEach
     void setup() {
         LocalDateTime startTime = LocalDateTime.now().plusHours(2);
 
         scheduleRepository.save(Schedule.builder()
+                .open(true)
                 .startDateTime(startTime)
                 .endDateTime(startTime.plusHours(1))
-                .tennisCourt(tennisCourtRepository.findById(1L).get()
-                )
+                .tennisCourt(tennisCourtRepository.getOne(1L))
                 .build()
         );
 
         scheduleRepository.save(Schedule.builder()
+                .open(true)
                 .startDateTime(startTime.plusHours(4))
                 .endDateTime(startTime.plusHours(5))
-                .tennisCourt(tennisCourtRepository.findById(1L).get()
-                )
+                .tennisCourt(tennisCourtRepository.getOne(1L))
                 .build()
         );
 
         reservationRepository.save(Reservation.builder()
+                .guest(guestRepository.getOne(1L))
                 .schedule(scheduleRepository.getOne(2L))
                 .reservationStatus(ReservationStatus.READY_TO_PLAY)
                 .value(BigDecimal.TEN)
@@ -90,10 +96,19 @@ class ReservationServiceTest {
     }
 
     @Test
-    void getRefundValue() {
+    void cancelReservation_shouldNotCancel() {
+        assertThrows(EntityNotFoundException.class, () -> reservationService.cancelReservation(100L));
     }
 
     @Test
-    void rescheduleReservation() {
+    void rescheduleReservation_shouldReschedule() {
+        ReservationDTO reservationDTO = reservationService.rescheduleReservation(1L,3L);
+
+        assertNotNull(reservationDTO);
+    }
+
+    @Test
+    void rescheduleReservation_shouldNotReschedule() {
+        assertThrows(EntityNotFoundException.class, () -> reservationService.rescheduleReservation(20L, 1L));
     }
 }

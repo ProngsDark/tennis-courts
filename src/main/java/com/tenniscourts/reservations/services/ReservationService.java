@@ -128,7 +128,7 @@ public class ReservationService {
         }
     }
 
-    public BigDecimal getRefundValue(Reservation reservation) {
+    private BigDecimal getRefundValue(Reservation reservation) {
         long hours = ChronoUnit.HOURS.between(LocalDateTime.now(), reservation.getSchedule().getStartDateTime());
         long minutes = ChronoUnit.MINUTES.between(LocalDateTime.now(), reservation.getSchedule().getStartDateTime());
 
